@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html{
+  scroll-behavior: smooth;
+}
+.loginBg{
+    background-image: url(./pages/assets/Login.jpg);
+    background-position: center;
+    background-size: contain;
+}
+body{
+  overflow-x:hidden ;
+  background-color: rgb(0, 0, 0); 
+  font-family: Arial, Helvetica, sans-serif;
+ 
+  
+}
+.slick-dots li.slick-active button:before {
+    color:#7300FF !important;
+    font-size: 20px !important;
+  }
+  .slick-dots li button:before {
+    color:#a17eff !important;
+    font-size: 20px !important;
+    
+  }
+  .slick-dots{
+    position: absolute  !important;
+    bottom: 20px !important;
+    z-index: 999;
+    
+  }
+  .bigSlider > div{
+    height: 750px;
+  }
+
+  @media screen and (max-width:1300px) {
+    .bigSlider > div{
+      height: auto;
+    }
+  
+  }
+  
+  .hhh{
+    z-index: 9999;
+  }
+
+  .t9iil{
+    animation-name: xi7aja ;
+    animation-duration: 2s;
+  }
+
+  @keyframes xi7aja {
+    0%{
+      opacity: 0;
+    }
+    50%{
+      opacity: 100;
+    }
+  }
+  .slick-center {
+    scale: 1.2 !important;
+    opacity: 1 !important;
+
+  }
+  .secondSlider .slick-track{
+    padding: 2rem 0;
+  }
+  
+  .center  .slick-track{
+    padding: 2rem 0;
+  }
+  .secondSlider .slick-center{
+    transition: all 500ms ease-in-out;
+    
+  }
+  
+  .slick-active >div > div > p:hover{
+    border: 1px solid #8a3bff;
+    background-color: #822AEE60;
+    border-radius: 12px;
+  }
+
+
+  @media screen and (max-width: 1024px) {
+    .secondSlider .slick-list{
+      display: none;
+    }
+  
+  }
+
+  .hhhh{
+    transition: all 3s;
+  }
+  
