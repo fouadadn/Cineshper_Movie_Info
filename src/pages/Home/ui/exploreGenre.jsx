@@ -28,10 +28,24 @@ export default function ExploreGenres({ Genre, backdropImage }) {
                         FreeMode={{ enabled: true }}
                         spaceBetween={50}
                         // Navigation={{ enabled: true }}
-                        slidesPerView={6}
+                        slidesPerView={1}
                         onSlideChange={() => console.log('slide change')}
                         onSwiper={(swiper) => console.log(swiper)}
-                        className="overflow-visible">
+                        breakpoints={{
+                            640: {
+                              slidesPerView: 2,
+                              spaceBetween: 20,
+                            },
+                            768: {
+                              slidesPerView: 4,
+                              spaceBetween: 40,
+                            },
+                            1024: {
+                              slidesPerView: 5,
+                              spaceBetween: 50,
+                            }
+                          }}
+                        >
 
                         {
                             listSlice.map((v, i) =>

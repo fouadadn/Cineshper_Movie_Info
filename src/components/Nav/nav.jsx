@@ -2,9 +2,10 @@ import { Search, Menu, TriangleAlert, X } from 'lucide-react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
-// import plugin from 'tailwindcss';
-
+import { useAuth } from '../../context/AuthContext';
+import profile from '../../pages/assets/profil.jpg'
 export default function Nav() {
+    const currentUser = useAuth();
     const [displaySearch, setDisplaySearch] = useState('hidden');
     const [film, setFilm] = useState('');
 
@@ -27,7 +28,7 @@ export default function Nav() {
         }
     };
     useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/search/multi?query=${film}&include_adult=false&language=en-US&page=1`, options)
+        fetch(`https://api.themoviedb.org/3/search/multi?query=${film}&include_adult=flase&language=en-US&page=1`, options)
             .then(response => response.json())
             .then(response => setMutliple(response.results))
             .catch(err => console.error(err));
@@ -39,11 +40,10 @@ export default function Nav() {
     const handleNavDisplay = () => {
         setDisplayNav(!displayNav)
     }
-
     return (
         <div className='relative z-[1000]'>
             <header className=" lg:fixed z-50 flex flex-wrap lg:justify-start lg:flex-nowrap w-full text-sm py-2 px-1 ">
-                <nav className={`max-w-[95rem] w-full mx-auto px-4 lg:flex md:items-center md:justify-between bg-[#7300FF60] rounded-2xl backdrop-blur-lg overflow-hidden transition-all duration-700 ease-in-out h-16  ${displayNav ? 'h-[295px] lg:h-16' : ''}`}>
+                <nav className={`max-w-[95rem] w-full mx-auto px-4 lg:flex md:items-center md:justify-between bg-[#7300FF60] rounded-2xl backdrop-blur-lg overflow-hidden transition-all duration-700 ease-in-out h-16  ${displayNav ? 'h-[255px] lg:h-16' : ''}`}>
                     <div className={`flex items-center justify-between duration-500`}>
                         <NavLink to={'/'}>
                             <h1 className='text-4xl  text-white text-nowrap flex items-center'>
@@ -51,25 +51,37 @@ export default function Nav() {
                             </h1>
                         </NavLink>
                         <button className='lg:hidden border-[1px] border-[#7300FF] rounded-lg p-1 hover:bg-[#7300FF40] duration-200' onClick={handleNavDisplay}>
-                            {displayNav ? < X color='white' className='t9iil'size={20} /> : <Menu color='white' className='t9iil' size={20}/>}
+                            {displayNav ? < X color='white' className='t9iil' size={20} /> : <Menu color='white' className='t9iil' size={20} />}
                         </button>
                     </div>
                     <div className="text-white  flex flex-col gap-5 pb-2 mt-5 lg:flex-row lg:items-center lg:justify-end lg:mt-0 md:ps-5 ">
                         <NavLink to={'/Upcoming'} className='hover:text-[#7300FF] duration-500'>Upcoming</NavLink>
                         <a href="#" className='hover:text-[#7300FF] duration-500'>Shows</a>
                         <a href="#" className='hover:text-[#7300FF] duration-500'>Fanart</a>
-                        <NavLink to={'/Account'} className='hover:text-[#7300FF] duration-500'>Account</NavLink>
-                        <div className={`border bg-[#7300FF10] w-80  border-[#a473ff] rounded-xl flex items-center pr-2`}>
-                            <input
-                                value={film}
-                                className={`bg-transparent outline-none text-white text-sm w-full px-6 py-3 `}
-                                type='search'
-                                placeholder='Search'
-                                onChange={handleInputChange}
-                            />
-                            <Search color='white' size={26} />
+                        <div className='flex flex-row gap-3 items-center justify-between'>
+                            <div className={`border bg-[#7300FF10] w-80  border-[#a473ff] rounded-xl flex items-center pr-2`}>
+                                <input
+                                    value={film}
+                                    className={`bg-transparent outline-none text-white text-sm w-full px-6 py-3 `}
+                                    type='search'
+                                    placeholder='Search'
+                                    onChange={handleInputChange}
+                                />
+                                <Search color='white' size={26} />
+                            </div>
+                            {currentUser.currentUser ? <div>
+                                <NavLink to={currentUser.currentUser ? '/loggendIn' : '/Account'} className={''}>
+                                    <span className='text-white bg-black  rounded-full p-2 block w-10 h-10 text-center font-bold '><span className='relative top-[2px] left-[1px] '>{String(currentUser.currentUser.displayName)?.split(' ')[0]?.slice(0, 1)} {String(currentUser.currentUser.displayName)?.split(' ')[1]?.slice(0, 1)}</span></span>
+                                </NavLink>
+                            </div> : <div >
+                                <NavLink to={'/Account'} >
+                                    <img src={profile} alt="" className='bg-white rounded-full h-10 w-10' />
+                                </NavLink>
+
+                            </div>}
                         </div>
                     </div>
+
 
                 </nav>
             </header>
